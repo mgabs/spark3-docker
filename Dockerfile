@@ -81,7 +81,7 @@ RUN git clone https://github.com/delta-io/delta.git
 RUN cd delta && build/sbt package
 RUN mkdir /opt/delta && mv delta/target/scala-2.12/*.jar /opt/delta/
 RUN echo "# Run command" >> /opt/delta/readme.md
-RUN echo "spark-submit --packages io.delta:delta-core_2.12:0.7.0 PATH/TO/EXAMPLE" >> /opt/delta/readme.md
+RUN echo "spark-submit --packages io.delta:delta-core_2.12:1.0.0 PATH/TO/EXAMPLE" >> /opt/delta/readme.md
 
 # # glue 3
 # RUN wget https://aws-glue-etl-artifacts.s3.amazonaws.com/release/com/amazonaws/AWSGlueETL/3.0.0/AWSGlueETL-3.0.0.jar
@@ -135,7 +135,9 @@ RUN echo "# More aliases" >> ~/.bashrc
 RUN echo "alias md='mkdir'" >> ~/.bashrc
 RUN echo "alias rd='rmdir'" >> ~/.bashrc
 # Sane vim
-RUN wget https://raw.github.com/gacha/vim-tiny/master/.vimrc -O ~/.vimrc && mkdir -p ~/.vim/swap && mkdir ~/.vim/undo
+RUN git clone https://github.com/tariusagi/vimrc.git ~/.vim
+RUN sh ~/.vim_runtime/install_awesome_vimrc.sh
+RUN mkdir -p ~/.vim/swap && mkdir ~/.vim/undo
 
 
 # Cleanup
