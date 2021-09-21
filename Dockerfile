@@ -33,8 +33,8 @@ RUN wget --no-verbose "https://downloads.typesafe.com/scala/${SCALA_VERSION}/sca
 
 
 # Sbt Installation
-RUN export PATH="/usr/local/sbt/bin:$PATH" &&  apt update && apt install ca-certificates wget tar && mkdir -p "/usr/local/sbt" && wget -qO - --no-check-certificate "https://github.com/sbt/sbt/releases/download/v1.5.5/sbt-1.5.5.tgz" | tar xz -C /usr/local/sbt --strip-components=1
-
+RUN  apt update && apt install ca-certificates wget tar && mkdir -p "/usr/local/sbt" && wget -qO - --no-check-certificate "https://github.com/sbt/sbt/releases/download/v1.5.5/sbt-1.5.5.tgz" | tar xz -C /usr/local/sbt --strip-components=1
+ENV PATH="${PATH}:/usr/local/sbt/bin"
 
 # Apache Spark
 RUN wget --no-verbose https://mirror.klaus-uwe.me/apache/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-${HADOOP_VERSION}.tgz && tar -xzf spark-${SPARK_VERSION}-bin-${HADOOP_VERSION}.tgz \
