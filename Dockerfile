@@ -83,6 +83,11 @@ RUN mkdir /opt/delta && mv delta/target/scala-2.12/*.jar /opt/delta/
 RUN echo "# Run command" >> /opt/delta/readme.md
 RUN echo "spark-submit --packages io.delta:delta-core_2.12:1.0.0 PATH/TO/EXAMPLE" >> /opt/delta/readme.md
 
+# Hive schema gen
+RUN echo "# Downloading Hive SerDe schema generator"
+RUN git clone https://github.com/strelec/hive-serde-schema-gen.git /opt/hive-serde-schema-gen
+
+
 # # glue 3
 # RUN wget https://aws-glue-etl-artifacts.s3.amazonaws.com/release/com/amazonaws/AWSGlueETL/3.0.0/AWSGlueETL-3.0.0.jar
 
