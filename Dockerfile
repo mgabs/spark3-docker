@@ -15,11 +15,13 @@ RUN apt update
 RUN apt upgrade --quiet -y
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN apt install openjdk-8-jdk git -y
-RUN apt install vim wget jq curl bc -y
+RUN apt install wget jq curl bc -y
 RUN apt install python3 python3-dev python3-pip -y
 RUN python3 -m pip install --upgrade pip
+RUN pip3 install jedi pylint autopep8 jedi-language-server
 RUN pip3 install pytoml awk boto3 delta-spark
 RUN pip3 install awswrangler pandas
+RUN
 
 WORKDIR /tmp
 
@@ -139,9 +141,13 @@ RUN echo "bind 'set completion-ignore-case on'" >> ~/.bashrc
 RUN echo "# More aliases" >> ~/.bashrc
 RUN echo "alias md='mkdir'" >> ~/.bashrc
 RUN echo "alias rd='rmdir'" >> ~/.bashrc
+RUN echo "# Neovim" >> ~/.bashrc
+RUN echo "alias vim=nvim" >> ~/.bashrc
+RUN echo "alias vi=nvim" >> ~/.bashrc
+
 # Sane vim
-RUN git clone https://github.com/tariusagi/vimrc.git ~/.vim
-RUN sh ~/.vim_runtime/install_awesome_vimrc.sh
+# RUN git clone https://github.com/tariusagi/vimrc.git ~/.vim
+# RUN sh ~/.vim_runtime/install_awesome_vimrc.sh
 RUN mkdir -p ~/.vim/swap && mkdir ~/.vim/undo
 
 
