@@ -1,4 +1,3 @@
-# FROM ubuntu:latest
 FROM debian:latest
 
 
@@ -122,7 +121,7 @@ RUN git clone https://github.com/strelec/hive-serde-schema-gen.git /opt/hive-ser
 # EXPOSE 80
 
 # Prompt
-ENV PS1="\\e[;33m🕐\\t \[\033[00m\]\\e[;32m\\"@\\W # \\e[0m"
+# ENV PS1="\\e[;33m🕐\\t \[\033[00m\]\\e[;32m\\"@\\W # \\e[0m"
 RUN echo "# Setting Prompt" >> ~/.bashrc
 RUN echo 'PS1="\\e[;33m🕐\\t \[\033[00m\]\\e[;32m\\"@\\W # \\e[0m"' >> ~/.bashrc
 
@@ -173,5 +172,3 @@ EXPOSE 8888
 # Set default command
 CMD ["jupyter", "lab", "--port=8888", "--no-browser", "--ip=0.0.0.0", "--allow-root", "--ServerApp.token=''", "--ServerApp.password=''"]
 
-# Artifacts
-# https://aws-glue-etl-artifacts.s3.amazonaws.com/

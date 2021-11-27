@@ -10,3 +10,7 @@ contains:
 - Apache Hudi
 - maven
 - sbt
+
+## Build
+
+`docker build -t spark3 .`
