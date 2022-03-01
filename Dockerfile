@@ -1,4 +1,4 @@
-FROM debian:latest
+FROM --platform=linux/arm64 debian:latest
 
 
 # Setting ENV
@@ -9,7 +9,7 @@ ENV SCALA_VERSION=2.12.4
 ENV HADOOP_VERSION=hadoop3.2
 ENV SCALA_HOME=/opt/scala
 ENV SPARK_HOME=/opt/spark
-ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-arm64
 
 RUN apt update
 RUN apt upgrade --quiet -y
@@ -51,9 +51,9 @@ RUN mv apache-maven-3.6.0 ${MAVEN_HOME}
 
 # node
 ENV NODE_HOME=/opt/node
-RUN wget https://nodejs.org/dist/v14.17.6/node-v14.17.6-linux-x64.tar.xz
-RUN tar xf node-v14.17.6-linux-x64.tar.xz > /dev/null
-RUN mv node-v14.17.6-linux-x64 ${NODE_HOME}
+RUN wget https://nodejs.org/dist/v16.14.0/node-v16.14.0-linux-arm64.tar.xz
+RUN tar xf node-v16.14.0-linux-arm64.tar.xz > /dev/null
+RUN mv node-v16.14.0-linux-arm64 ${NODE_HOME}
 
 # PATH
 ENV PATH="${PATH}:${SCALA_HOME}/bin:${JAVA_HOME}/bin"
@@ -63,7 +63,7 @@ ENV PATH="${PATH}:${NODE_HOME}/bin"
 
 # Install Awscli
 RUN apt install unzip -y
-RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip" -o "awscliv2.zip"
 RUN unzip awscliv2.zip > /dev/null
 RUN ./aws/install > /dev/null
 
@@ -121,10 +121,9 @@ RUN git clone https://github.com/strelec/hive-serde-schema-gen.git /opt/hive-ser
 # EXPOSE 80
 
 # Prompt
-# ENV PS1="\\e[;33m🕐\\t \[\033[00m\]\\e[;32m\\"@\\W # \\e[0m"
 RUN echo "# Setting Prompt" >> ~/.bashrc
-RUN echo 'PS1="\\e[;33m🕐\\t \[\033[00m\]\\e[;32m\\"@\\W # \\e[0m"' >> ~/.bashrc
-
+RUN echo 'PS1="\\u@\\h \\t:\\$ "' >> ~/.bashrc
+# History
 RUN echo "# History" >> ~/.bashrc
 RUN echo "# avoid duplicates.." >> ~/.bashrc
 RUN echo "export HISTCONTROL=ignoredups:erasedups:ignoreboth" >> ~/.bashrc
@@ -144,6 +143,7 @@ RUN echo "# search history - Left arrow" >> ~/.bashrc
 RUN echo 'bind "\"\e[1;5D\":backward-word"' >> ~/.bashrc
 RUN echo "# Auto Completion" >> ~/.bashrc
 RUN echo 'bind "set completion-ignore-case on"' >> ~/.bashrc
+# Aliases
 RUN echo "# More aliases" >> ~/.bashrc
 RUN echo 'alias md="mkdir"' >> ~/.bashrc
 RUN echo 'alias rd="rmdir"' >> ~/.bashrc
@@ -171,4 +171,3 @@ EXPOSE 8888
 
 # Set default command
 CMD ["jupyter", "lab", "--port=8888", "--no-browser", "--ip=0.0.0.0", "--allow-root", "--ServerApp.token=''", "--ServerApp.password=''"]
-
