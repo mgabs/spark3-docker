@@ -121,8 +121,8 @@ RUN git clone https://github.com/strelec/hive-serde-schema-gen.git /opt/hive-ser
 # EXPOSE 80
 
 # Prompt
-RUN echo "# Setting Prompt" >> ~/.bashrc
-RUN echo 'PS1="\\u@\\h \\t:\\$ "' >> ~/.bashrc
+# RUN echo "# Setting Prompt" >> ~/.bashrc
+# RUN echo 'PS1="\\u@\\h \\t:\\$ "' >> ~/.bashrc
 # History
 RUN echo "# History" >> ~/.bashrc
 RUN echo "# avoid duplicates.." >> ~/.bashrc
