@@ -123,7 +123,7 @@ RUN git clone https://github.com/strelec/hive-serde-schema-gen.git /opt/hive-ser
 # Prompt
 # ENV PS1="\\e[;33m🕐\\t \[\033[00m\]\\e[;32m\\"@\\W # \\e[0m"
 RUN echo "# Setting Prompt" >> ~/.bashrc
-RUN echo 'PS1="\\e[;33m🕐\\t \[\033[00m\]\\e[;32m\\"@\\W # \\e[0m"' >> ~/.bashrc
+# RUN echo 'PS1="\\e[;33m🕐\\t \[\033[00m\]\\e[;32m\\"@\\W # \\e[0m"' >> ~/.bashrc
 
 RUN echo "# History" >> ~/.bashrc
 RUN echo "# avoid duplicates.." >> ~/.bashrc
