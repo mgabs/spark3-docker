@@ -4,9 +4,9 @@ FROM --platform=linux/arm64 debian:latest
 # Setting ENV
 ENV TZ=Africa/Cairo
 ENV DAEMON_RUN=true
-ENV SPARK_VERSION=3.1.2
+ENV SPARK_VERSION=3.3.0
 ENV SCALA_VERSION=2.12.4
-ENV HADOOP_VERSION=hadoop3.2
+ENV HADOOP_VERSION=hadoop3
 ENV SCALA_HOME=/opt/scala
 ENV SPARK_HOME=/opt/spark
 ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-arm64
@@ -39,7 +39,7 @@ RUN  apt update && apt install ca-certificates wget tar && mkdir -p "/usr/local/
 ENV PATH="${PATH}:/usr/local/sbt/bin"
 
 # Apache Spark
-RUN wget --no-verbose https://mirror.klaus-uwe.me/apache/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-${HADOOP_VERSION}.tgz && tar -xzf spark-${SPARK_VERSION}-bin-${HADOOP_VERSION}.tgz \
+RUN wget --no-verbose https://dlcdn.apache.org/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-${HADOOP_VERSION}.tgz && tar -xzf spark-${SPARK_VERSION}-bin-${HADOOP_VERSION}.tgz \
       && mv spark-${SPARK_VERSION}-bin-${HADOOP_VERSION} ${SPARK_HOME} \
       && rm spark-${SPARK_VERSION}-bin-${HADOOP_VERSION}.tgz >> /dev/null
 
