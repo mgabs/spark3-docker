@@ -4,9 +4,9 @@ FROM debian:latest
 # Setting ENV
 ENV TZ=Africa/Cairo
 ENV DAEMON_RUN=true
-ENV SPARK_VERSION=3.1.2
+ENV SPARK_VERSION=3.3.0
 ENV SCALA_VERSION=2.12.4
-ENV HADOOP_VERSION=hadoop3.2
+ENV HADOOP_VERSION=hadoop3
 ENV SCALA_HOME=/opt/scala
 ENV SPARK_HOME=/opt/spark
 ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
@@ -39,7 +39,7 @@ RUN  apt update && apt install ca-certificates wget tar && mkdir -p "/usr/local/
 ENV PATH="${PATH}:/usr/local/sbt/bin"
 
 # Apache Spark
-RUN wget --no-verbose https://mirror.klaus-uwe.me/apache/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-${HADOOP_VERSION}.tgz && tar -xzf spark-${SPARK_VERSION}-bin-${HADOOP_VERSION}.tgz \
+RUN wget --no-verbose https://dlcdn.apache.org/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-${HADOOP_VERSION}.tgz && tar -xzf spark-${SPARK_VERSION}-bin-${HADOOP_VERSION}.tgz \
       && mv spark-${SPARK_VERSION}-bin-${HADOOP_VERSION} ${SPARK_HOME} \
       && rm spark-${SPARK_VERSION}-bin-${HADOOP_VERSION}.tgz >> /dev/null
 
@@ -51,9 +51,9 @@ RUN mv apache-maven-3.6.0 ${MAVEN_HOME}
 
 # node
 ENV NODE_HOME=/opt/node
-RUN wget https://nodejs.org/dist/v14.17.6/node-v14.17.6-linux-x64.tar.xz
-RUN tar xf node-v14.17.6-linux-x64.tar.xz > /dev/null
-RUN mv node-v14.17.6-linux-x64 ${NODE_HOME}
+RUN wget https://nodejs.org/dist/v16.15.1/node-v16.15.1-linux-x64.tar.xz
+RUN tar xf node-v16.15.1-linux-x64.tar.xz > /dev/null
+RUN mv node-v16.15.1-linux-x64 ${NODE_HOME}
 
 # PATH
 ENV PATH="${PATH}:${SCALA_HOME}/bin:${JAVA_HOME}/bin"
@@ -122,7 +122,7 @@ RUN git clone https://github.com/strelec/hive-serde-schema-gen.git /opt/hive-ser
 
 # Prompt
 # ENV PS1="\\e[;33m🕐\\t \[\033[00m\]\\e[;32m\\"@\\W # \\e[0m"
-RUN echo "# Setting Prompt" >> ~/.bashrc
+# RUN echo "# Setting Prompt" >> ~/.bashrc
 # RUN echo 'PS1="\\e[;33m🕐\\t \[\033[00m\]\\e[;32m\\"@\\W # \\e[0m"' >> ~/.bashrc
 
 RUN echo "# History" >> ~/.bashrc
@@ -134,14 +134,14 @@ RUN echo "# append history entries + discard null & case insensitive.." >> ~/.ba
 RUN echo "shopt -s histappend nullglob histappend #nocaseglob" >> ~/.bashrc
 RUN echo "# After each command, save and reload history" >> ~/.bashrc
 RUN echo 'export PROMPT_COMMAND=\"history -a; history -c; history -r; $PROMPT_COMMAND\"' >> ~/.bashrc
-RUN echo "# search history - Up arrow" >> ~/.bashrc
-RUN echo 'bind "\"\e[A\": history-search-backward"' >> ~/.bashrc
-RUN echo "# search history - Down arrow" >> ~/.bashrc
-RUN echo 'bind "\"\e[B\": history-search-forward"' >> ~/.bashrc
-RUN echo "# search history - Right arrow" >> ~/.bashrc
-RUN echo 'bind "\"\e[1;5C\":forward-word"' >> ~/.bashrc
-RUN echo "# search history - Left arrow" >> ~/.bashrc
-RUN echo 'bind "\"\e[1;5D\":backward-word"' >> ~/.bashrc
+# RUN echo "# search history - Up arrow" >> ~/.bashrc
+# RUN echo 'bind "\"\e[A\": history-search-backward"' >> ~/.bashrc
+# RUN echo "# search history - Down arrow" >> ~/.bashrc
+# RUN echo 'bind "\"\e[B\": history-search-forward"' >> ~/.bashrc
+# RUN echo "# search history - Right arrow" >> ~/.bashrc
+# RUN echo 'bind "\"\e[1;5C\":forward-word"' >> ~/.bashrc
+# RUN echo "# search history - Left arrow" >> ~/.bashrc
+# RUN echo 'bind "\"\e[1;5D\":backward-word"' >> ~/.bashrc
 RUN echo "# Auto Completion" >> ~/.bashrc
 RUN echo 'bind "set completion-ignore-case on"' >> ~/.bashrc
 RUN echo "# More aliases" >> ~/.bashrc
